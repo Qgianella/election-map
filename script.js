@@ -14,6 +14,18 @@ var makePolitician = function(name) {
   politician.announceHim();
   //==========================
 
+
+  // method for tallying votes
+politician.tallyUpVotes = function(){
+
+    this.totalVotes = 0;
+
+    for (var i = 0; i < this.electionResults.length; i++){
+        this.totalVotes = this.totalVotes + this.electionResults[i];
+    }
+
+};
+
   //ensures that calling the factory function will produce a new "politician" object
   return politician;
 
@@ -35,5 +47,32 @@ politician1.electionResults[4]=17;
 politician2.electionResults[4]=38;
 politician1.electionResults[43]=11;
 politician2.electionResults[43]=27;
-console.log("Cookie Monster"+politician1.electionResults);
-console.log("Marge Simpson"+politician2.electionResults);
+
+console.log("Cookie Monster's votes per state: "+politician1.electionResults);
+console.log("Marge Simpson's votes per state: "+politician2.electionResults);
+
+
+
+// calling the method for each politician
+politician1.tallyUpVotes();
+politician2.tallyUpVotes();
+
+//console log total votes
+console.log(politician1.name + ": "+ politician1.totalVotes);
+console.log(politician2.name + ": "+ politician2.totalVotes);
+
+//declare the winner
+var winner = "";
+  if (politician1.totalVotes > politician2.totalVotes)
+  {
+    winner = politician1.name;
+  }
+else if (politician1.totalVotes < politician2.totalVotes)
+  {
+    winner = politician2.name;
+  }
+else{
+  winner = "DRAW"
+}
+
+console.log(winner + " is our newest president!");
