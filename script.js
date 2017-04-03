@@ -44,10 +44,7 @@ var setStateResults = function(state) {
 
   if (politician1.electionResults[state] > politician2.electionResults[state]) {
     theStates[state].winner = politician1;
-  } else if (politician1.electionResults[state] === politician2.electionResults[state]) {
-
-    theStates[state].winner = "tied";
-  } else {
+  } else if (politician1.electionResults[state] < politician2.electionResults[state]) {
     theStates[state].winner = politician2;
   }
 
@@ -63,7 +60,6 @@ var setStateResults = function(state) {
   var results2 = body.children[1].children[1];
   var winnerName = body.children[2].children[1];
 
-
   var stateWinner = theStates[state].winner;
 
   if (stateWinner !== null) {
@@ -77,13 +73,18 @@ var setStateResults = function(state) {
   name1.innerText = politician1.name;
   results1.innerText = politician1.electionResults[state];
   name2.innerText = politician2.name;
-  results2.innerText = politician2.electionResults[state];
-  winnerName.innerText = winner;
+  results2.innerText = politician2.electionResults[state]
+
+  if (theStates[state].winner === null) {
+    winnerName.innerText = "TIE";
+  } else {
+    winnerName.innerText = theStates[state].winner.name;
+  }
 };
 
 //call function for new candidate
-var politician1 = makePolitician("Cookie Monster", [132, 17, 11]);
-var politician2 = makePolitician("Marge Simpson", [245, 141, 136]);
+var politician1 = makePolitician("Cookie Monster", [20, 54, 226]);
+var politician2 = makePolitician("Marge Simpson", [255, 204, 51]);
 
 // console messages to make sure the property is assigned correctly
 console.log("Cookie Monster's color is: " + politician1.partyColor);
@@ -121,7 +122,7 @@ if (politician1.totalVotes > politician2.totalVotes) {
 } else if (politician1.totalVotes < politician2.totalVotes) {
   winner = politician2.name;
 } else {
-  winner = "it's DRAW..re-count to see who"
+  winner = "TIE"
 }
 
 console.log(winner + " is our newest president!");
